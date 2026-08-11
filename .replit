@@ -1,4 +1,4 @@
-modules = ["nodejs-24"]
+modules = ["nodejs-24", "python-base-3.13"]
 
 [deployment]
 router = "application"
@@ -18,3 +18,11 @@ expertMode = true
 [postMerge]
 path = "scripts/post-merge.sh"
 timeoutMs = 20000
+
+[userenv]
+
+[userenv.shared]
+CLIENT_ID = "1530329391903670352"
+GUILD_ID = "1536518620895772742"
+ROLE_ID = "1536519028695375942"
+REDIRECT_URI = "https://cyberbeamverify/callback"

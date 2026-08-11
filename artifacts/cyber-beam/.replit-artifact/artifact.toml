@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Cyber Beam"
+description = "A compact monochrome Discord OAuth2 gateway with a neon white login experience and Netlify serverless role assignment."
+version = "1.0.0"
+id = "artifacts/cyber-beam"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19438
+
+[services.development]
+run = "pnpm --filter @workspace/cyber-beam run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/cyber-beam", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/cyber-beam/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19438"
+BASE_PATH = "/"
