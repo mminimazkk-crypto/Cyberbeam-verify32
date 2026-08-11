@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#050505" />
+    <meta name="description" content="Cyber Beam — acesso privado por Discord." />
+    <title>Cyber Beam — Private Access</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
+      :root { color-scheme: dark; font-family: Manrope, sans-serif; background: #050505; color: #f5f5f5; }
+      * { box-sizing: border-box; }
+      body { margin: 0; min-width: 320px; background: #050505; }
+      .page { min-height: 100vh; overflow: hidden; position: relative; display: flex; flex-direction: column; background: radial-gradient(ellipse at 50% 45%, rgba(255,255,255,.08), transparent 58%), #050505; }
+      .page::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .25; background-image: linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px); background-size: 72px 72px; mask-image: radial-gradient(ellipse at center, #000, transparent 76%); }
+      .shell { width: min(100%, 1120px); min-height: 100vh; margin: auto; padding: 28px; display: flex; flex-direction: column; }
+      .nav, .footer { display: flex; align-items: center; justify-content: space-between; font: 9px 'DM Mono', monospace; letter-spacing: .13em; text-transform: uppercase; color: rgba(255,255,255,.42); }
+      .nav { color: #f5f5f5; font: 700 12px Manrope, sans-serif; letter-spacing: .2em; }
+      .brand { display: flex; align-items: center; gap: 11px; }
+      .mark { width: 24px; height: 24px; display: grid; place-items: center; position: relative; border: 1px solid rgba(255,255,255,.7); transform: rotate(45deg); }
+      .mark::after { content: ""; width: 7px; height: 7px; border: 1px solid #fff; }
+      .mark span { position: absolute; width: 32px; height: 1px; background: #fff; transform: rotate(-45deg); opacity: .55; }
+      .secure { display: flex; align-items: center; gap: 9px; color: rgba(255,255,255,.42); font: 9px 'DM Mono', monospace; letter-spacing: .13em; }
+      .dot { width: 5px; height: 5px; border-radius: 50%; background: #fff; box-shadow: 0 0 12px #fff; }
+      .main { flex: 1; display: grid; place-items: center; padding: 40px 0 52px; }
+      .card { width: min(100%, 432px); padding: 28px; position: relative; border: 1px solid rgba(255,255,255,.2); background: rgba(11,11,11,.86); box-shadow: 0 26px 90px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.06); animation: rise .85s cubic-bezier(.22,1,.36,1) both; }
+      .card::before, .card::after { content: ""; width: 13px; height: 13px; position: absolute; border-color: #fff; }
+      .card::before { left: -1px; top: -1px; border-left: 1px solid; border-top: 1px solid; }
+      .card::after { right: -1px; bottom: -1px; border-right: 1px solid; border-bottom: 1px solid; }
+      .meta { display: flex; justify-content: space-between; margin-bottom: 25px; color: rgba(255,255,255,.45); font: 9px 'DM Mono', monospace; letter-spacing: .14em; text-transform: uppercase; }
+      .visual { height: 170px; margin-bottom: 28px; position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,.14); background: #030303; }
+      .visual img { width: 100%; height: 100%; display: block; object-fit: cover; opacity: .85; mix-blend-mode: screen; }
+      .visual::after { content: "SIGNAL / 01"; position: absolute; left: 12px; bottom: 10px; color: rgba(255,255,255,.55); font: 8px 'DM Mono', monospace; letter-spacing: .15em; }
+      h1 { margin: 0; font-size: clamp(32px, 8vw, 43px); line-height: .98; letter-spacing: -.065em; }
+      h1 em { color: rgba(255,255,255,.48); font-style: normal; }
+      p { max-width: 34ch; margin: 17px 0 25px; color: rgba(255,255,255,.57); font-size: 12px; line-height: 1.7; }
+      .message { margin: 0 0 19px; padding: 11px 12px; border-left: 2px solid #fff; background: rgba(255,255,255,.07); color: rgba(255,255,255,.78); font: 9px/1.5 'DM Mono', monospace; }
+      .login { min-height: 51px; display: flex; align-items: center; justify-content: center; gap: 11px; position: relative; overflow: hidden; color: #070707; background: #f5f5f5; border: 1px solid #fff; font-size: 12px; font-weight: 800; text-decoration: none; transition: .3s ease; }
+      .login::before { content: ""; position: absolute; inset: 0; background: linear-gradient(105deg, transparent 28%, rgba(255,255,255,.9) 50%, transparent 72%); transform: translateX(-120%); transition: transform .65s cubic-bezier(.22,1,.36,1); }
+      .login span, .login svg { position: relative; z-index: 1; }
+      .login:hover, .login:focus-visible { color: #050505; background: #fff; outline: none; box-shadow: 0 0 0 1px rgba(255,255,255,.8), 0 0 22px rgba(255,255,255,.35), 0 0 55px rgba(255,255,255,.12); transform: translateY(-2px); }
+      .login:hover::before { transform: translateX(120%); }
+      .login:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+      .login svg { width: 17px; height: 17px; fill: currentColor; }
+      .assurance { display: flex; align-items: center; gap: 8px; margin-top: 16px; color: rgba(255,255,255,.38); font: 8px 'DM Mono', monospace; letter-spacing: .08em; text-transform: uppercase; }
+      .line { width: 19px; height: 1px; background: rgba(255,255,255,.32); }
+      .footer { align-items: end; }
+      .rule { width: 80px; height: 1px; margin-bottom: 7px; background: linear-gradient(90deg, #fff, transparent); opacity: .55; }
+      @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+      @media (max-width: 560px) { .shell { padding: 22px 18px 18px; } .card { padding: 22px; } .visual { height: 146px; } .footer { font-size: 7px; } }
+      @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <div class="shell">
+        <header class="nav">
+          <div class="brand"><span class="mark" aria-hidden="true"><span></span></span><span>Cyber Beam</span></div>
+          <div class="secure"><span class="dot" aria-hidden="true"></span><span>Channel secure</span></div>
+        </header>
+        <section class="main" aria-labelledby="gateway-title">
+          <div class="card">
+            <div class="meta"><span>Private access portal</span><span>CB / 001</span></div>
+            <div class="visual"><img src="/cyber-beam.gif" alt="Animação abstrata monocromática de sinal" /></div>
+            <h1 id="gateway-title">Enter the<br /><em>signal chamber.</em></h1>
+            <p>A quiet gateway to the Cyber Beam network. Verify your Discord identity to continue to the private channel.</p>
+            <div id="status" hidden class="message" role="status"></div>
+            <a class="login" href="/.netlify/functions/login" aria-label="Continuar com Discord">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.54 5.15A16.2 16.2 0 0 0 15.47 4l-.5 1.03a14.2 14.2 0 0 0-5.94 0L8.53 4a16.2 16.2 0 0 0-4.07 1.15C1.88 9.02 1.18 12.8 1.53 16.53A16.4 16.4 0 0 0 6.54 19l1.21-1.64a10.2 10.2 0 0 1-1.9-.91l.47-.36c3.67 1.72 7.65 1.72 11.28 0l.48.36c-.61.36-1.25.66-1.91.91L17.46 19a16.4 16.4 0 0 0 5-2.47c.42-4.33-.72-8.08-2.92-11.38ZM8.3 14.5c-1.1 0-2-1-2-2.22 0-1.22.88-2.22 2-2.22s2 1 2 2.22c0 1.22-.9 2.22-2 2.22Zm7.4 0c-1.1 0-2-1-2-2.22 0-1.22.88-2.22 2-2.22s2 1 2 2.22c0 1.22-.9 2.22-2 2.22Z"/></svg>
+              <span>Continue with Discord</span>
+              <span aria-hidden="true">↗</span>
+            </a>
+            <div class="assurance"><span aria-hidden="true">⌁</span><span class="line" aria-hidden="true"></span><span>OAuth 2.0 · no credentials stored</span></div>
+          </div>
+        </section>
+        <footer class="footer"><div><div class="rule"></div><span>Access protocol / 2025</span></div><span>Encrypted by default</span></footer>
+      </div>
+    </main>
+    <script>
+      const status = new URLSearchParams(location.search).get('status');
+      const statusBox = document.getElementById('status');
+      if (status === 'success' || status === 'error') {
+        statusBox.hidden = false;
+        statusBox.textContent = status === 'success'
+          ? 'Identity confirmed. Your access signal is being routed.'
+          : 'The access signal was interrupted. Please try again.';
+      }
+    </script>
+  </body>
+</html>
