@@ -6,7 +6,8 @@ Site compacto de verificação via Discord OAuth2, pronto para hospedar na Netli
 
 - Publish directory: `public`
 - Functions directory: `netlify/functions`
-- O `netlify.toml` já contém essa configuração.
+- Build command: `echo 'Cyber Beam static site: no build step required'`
+- O `netlify.toml` já contém essa configuração e evita que a Netlify tente compilar o workspace inteiro.
 - Cadastre as variáveis do `.env.example` no painel da Netlify.
 - No Discord Developer Portal, use exatamente:
   `https://SEU-DOMINIO/.netlify/functions/callback`

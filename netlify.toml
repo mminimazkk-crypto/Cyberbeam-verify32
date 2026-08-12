@@ -1,14 +1,14 @@
 [build]
+  command = "echo 'Cyber Beam static site: no build step required'"
   publish = "public"
   functions = "netlify/functions"
 
+[build.environment]
+  NPM_FLAGS = "--ignore-scripts"
+  NODE_VERSION = "20"
+
 [functions]
   node_bundler = "esbuild"
-
-[[redirects]]
-  from = "/.netlify/functions/callback"
-  to = "/.netlify/functions/callback"
-  status = 200
 
 [[redirects]]
   from = "/*"
